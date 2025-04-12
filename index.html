@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+            margin: 0;
+        }
+        .calculator {
+            background-color: #333;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            width: 320px;
+        }
+        .display {
+            background-color: #e8f4ea;
+            color: #333;
+            font-size: 36px;
+            text-align: right;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            height: 60px;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 24px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background-color: #3e8e41;
+            transform: scale(1.05);
+        }
+        .food {
+            background-color: #ff9800;
+        }
+        .exercise {
+            background-color: #2196F3;
+        }
+        .operation {
+            background-color: #f44336;
+        }
+        .clear {
+            background-color: #9E9E9E;
+        }
+        .food-value, .exercise-value {
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+        }
+        .title {
+            color: white;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="title">Calorie Calculator</div>
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <!-- Food Buttons (Positive Calories) -->
+            <button class="food" onclick="appendValue(270)">🍔<span class="food-value">270</span></button>
+            <button class="food" onclick="appendValue(285)">🍕<span class="food-value">285</span></button>
+            <button class="food" onclick="appendValue(350)">🌮<span class="food-value">350</span></button>
+            <button class="food" onclick="appendValue(89)">🍎<span class="food-value">89</span></button>
+            
+            <button class="food" onclick="appendValue(540)">🍦<span class="food-value">540</span></button>
+            <button class="food" onclick="appendValue(160)">🥪<span class="food-value">160</span></button>
+            <button class="food" onclick="appendValue(130)">🍚<span class="food-value">130</span></button>
+            <button class="food" onclick="appendValue(105)">🍗<span class="food-value">105</span></button>
+            
+            <!-- Exercise Buttons (Negative Calories) -->
+            <button class="exercise" onclick="appendValue(-300)">🏃<span class="exercise-value">-300</span></button>
+            <button class="exercise" onclick="appendValue(-150)">🚶<span class="exercise-value">-150</span></button>
+            <button class="exercise" onclick="appendValue(-500)">🏊<span class="exercise-value">-500</span></button>
+            <button class="exercise" onclick="appendValue(-250)">🚴<span class="exercise-value">-250</span></button>
+            
+            <!-- Operations -->
+            <button class="clear" onclick="clearDisplay()">C</button>
+            <button class="operation" onclick="calculateTotal()">+</button>
+            <button class="operation" onclick="calculateTotal()">=</button>
+            <button class="clear" onclick="clearLastEntry()">⌫</button>
+        </div>
+    </div>
+
+    <script>
+        let currentTotal = 0;
+        let currentInput = "";
+        let displayValue = "0";
+        const display = document.getElementById('display');
+        
+        function updateDisplay() {
+            display.textContent = displayValue;
+        }
+        
+        function appendValue(value) {
+            if (currentInput === "") {
+                currentInput = value.toString();
+            } else {
+                currentInput = value.toString();
+            }
+            displayValue = currentInput;
+            updateDisplay();
+        }
+        
+        function calculateTotal() {
+            if (currentInput !== "") {
+                currentTotal += parseInt(currentInput);
+                currentInput = "";
+                displayValue = currentTotal.toString();
+                updateDisplay();
+            }
+        }
+        
+        function clearDisplay() {
+            currentTotal = 0;
+            currentInput = "";
+            displayValue = "0";
+            updateDisplay();
+        }
+        
+        function clearLastEntry() {
+            currentInput = "";
+            displayValue = currentTotal.toString();
+            updateDisplay();
+        }
+    </script>
+</body>
+</html>
